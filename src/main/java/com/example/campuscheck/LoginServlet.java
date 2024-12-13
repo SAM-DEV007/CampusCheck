@@ -15,7 +15,7 @@ public class LoginServlet extends HttpServlet {
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("username") == null)
             //response.sendRedirect("login.jsp");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
             //response.sendRedirect("login.jsp");
         else
             //response.sendRedirect("index.jsp");
@@ -39,7 +39,7 @@ public class LoginServlet extends HttpServlet {
             response.sendRedirect("/home");
         } else {
             //response.sendRedirect("login.jsp");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
             //response.sendRedirect("login.jsp");
         }
     }

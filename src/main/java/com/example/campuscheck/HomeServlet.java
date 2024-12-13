@@ -19,7 +19,7 @@ public class HomeServlet extends HttpServlet {
 
             switch (role) {
                 case "student":
-                    request.getRequestDispatcher("index.jsp").forward(request, response);
+                    request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
                     break;
                 case "teacher":
                     request.getRequestDispatcher("teacher.jsp").forward(request, response);
