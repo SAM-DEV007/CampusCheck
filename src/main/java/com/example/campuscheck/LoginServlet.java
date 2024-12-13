@@ -12,7 +12,8 @@ import java.io.IOException;
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (request.getSession(false).getAttribute("username") == null)
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("username") == null)
             //response.sendRedirect("login.jsp");
             request.getRequestDispatcher("login.jsp").forward(request, response);
             //response.sendRedirect("login.jsp");
