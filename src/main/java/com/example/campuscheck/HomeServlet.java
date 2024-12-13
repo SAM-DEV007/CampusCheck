@@ -28,7 +28,6 @@ public class HomeServlet extends HttpServlet {
                     response.sendRedirect("/login");
             }
         } else {
-            //request.getRequestDispatcher("LoginServlet").forward(request, response);
             response.sendRedirect("/login");
         }
     }

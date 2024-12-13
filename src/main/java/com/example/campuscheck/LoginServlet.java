@@ -14,13 +14,8 @@ public class LoginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("username") == null)
-            //response.sendRedirect("login.jsp");
             request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
-            //response.sendRedirect("login.jsp");
         else
-            //response.sendRedirect("index.jsp");
-            //request.getRequestDispatcher("index.jsp").forward(request, response);
-            //request.getRequestDispatcher("HomeServlet").forward(request, response);
             response.sendRedirect("/home");
     }
 
@@ -33,14 +28,10 @@ public class LoginServlet extends HttpServlet {
             HttpSession session = request.getSession();
             session.setAttribute("username", username);
             session.setAttribute("role", role);
-            //response.sendRedirect("index.jsp");
-            //request.getRequestDispatcher("index.jsp").forward(request, response);
-            //request.getRequestDispatcher("HomeServlet").forward(request, response);
+
             response.sendRedirect("/home");
         } else {
-            //response.sendRedirect("login.jsp");
             request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
-            //response.sendRedirect("login.jsp");
         }
     }
 }
