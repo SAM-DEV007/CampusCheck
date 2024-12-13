@@ -7,6 +7,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import java.io.IOException;
 
 @WebServlet("/login")
@@ -21,8 +26,14 @@ public class LoginServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("username");
-        String password = request.getParameter("password");
         String role = request.getParameter("role");
+        String password;
+        try {
+            password = hashPassword(request.getParameter("password"));
+        } catch (NoSuchAlgorithmException e) {
+            System.out.println("Error: " + e.getMessage());
+            password = "";
+        }
 
         if (username.equals("username") && password.equals("password")) {
             HttpSession session = request.getSession();
@@ -33,5 +44,18 @@ public class LoginServlet extends HttpServlet {
         } else {
             request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
         }
+    }
+
+    private String hashPassword(String password) throws NoSuchAlgorithmException {
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
+        byte[] hash = md.digest(password.getBytes(StandardCharsets.UTF_8));
+
+        BigInteger number = new BigInteger(1, hash);
+        StringBuilder hexString = new StringBuilder(number.toString(16));
+
+        while (hexString.length() < 32) {
+            hexString.insert(0, '0');
+        }
+        return hexString.toString();
     }
 }
