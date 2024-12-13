@@ -17,15 +17,16 @@ public class HomeServlet extends HttpServlet {
             String username = (String) session.getAttribute("username");
             String role = (String) session.getAttribute("role");
 
-            if (role.equalsIgnoreCase("student"))
-                request.getRequestDispatcher("index.jsp").forward(request, response);
-                //response.sendRedirect("index.jsp");
-            else if (role.equalsIgnoreCase("teacher"))
-                request.getRequestDispatcher("teacher.jsp").forward(request, response);
-                //response.sendRedirect("/teacher");
-            else
-                //request.getRequestDispatcher("LoginServlet").forward(request, response);
-                response.sendRedirect("/login");
+            switch (role) {
+                case "student":
+                    request.getRequestDispatcher("index.jsp").forward(request, response);
+                    break;
+                case "teacher":
+                    request.getRequestDispatcher("teacher.jsp").forward(request, response);
+                    break;
+                default:
+                    response.sendRedirect("/login");
+            }
         } else {
             //request.getRequestDispatcher("LoginServlet").forward(request, response);
             response.sendRedirect("/login");
