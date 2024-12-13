@@ -36,7 +36,7 @@ public class LoginServlet extends HttpServlet {
             System.out.println("Error: " + e.getMessage());
             password = "";
         }
-        System.out.println(validateLogin(username, password, role));
+
         if (validateLogin(username, password, role)) {
             HttpSession session = request.getSession();
             session.setAttribute("username", username);
@@ -74,7 +74,7 @@ public class LoginServlet extends HttpServlet {
             statement = conn.createStatement();
 
             ResultSet resultSet;
-            resultSet = statement.executeQuery("SELECT * FROM " + role + " WHERE username='" + username + "' AND password='" + password + "'");
+            resultSet = statement.executeQuery("SELECT * FROM " + role + " WHERE Name='" + username + "' AND Password='" + password + "'");
 
             isValid = resultSet.next();
 
