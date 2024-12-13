@@ -12,6 +12,8 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import java.sql.*;
+
 import java.io.IOException;
 
 @WebServlet("/login")
@@ -34,8 +36,8 @@ public class LoginServlet extends HttpServlet {
             System.out.println("Error: " + e.getMessage());
             password = "";
         }
-
-        if (username.equals("username") && password.equals("password")) {
+        System.out.println(validateLogin(username, password, role));
+        if (validateLogin(username, password, role)) {
             HttpSession session = request.getSession();
             session.setAttribute("username", username);
             session.setAttribute("role", role);
@@ -57,5 +59,32 @@ public class LoginServlet extends HttpServlet {
             hexString.insert(0, '0');
         }
         return hexString.toString();
+    }
+
+    private boolean validateLogin(String username, String password, String role) {
+        boolean isValid = false;
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection conn = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/campuscheck",
+                    "root", "root");
+
+            Statement statement;
+            statement = conn.createStatement();
+
+            ResultSet resultSet;
+            resultSet = statement.executeQuery("SELECT * FROM " + role + " WHERE username='" + username + "' AND password='" + password + "'");
+
+            isValid = resultSet.next();
+
+            resultSet.close();
+            statement.close();
+            conn.close();
+        } catch (SQLException | ClassNotFoundException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+
+        return isValid;
     }
 }
