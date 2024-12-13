@@ -17,7 +17,8 @@ public class LoginServlet extends HttpServlet {
             request.getRequestDispatcher("login.jsp").forward(request, response);
         else
             //response.sendRedirect("index.jsp");
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+            //request.getRequestDispatcher("index.jsp").forward(request, response);
+            request.getRequestDispatcher("HomeServlet").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -30,7 +31,8 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute("username", username);
             session.setAttribute("role", role);
             //response.sendRedirect("index.jsp");
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+            //request.getRequestDispatcher("index.jsp").forward(request, response);
+            request.getRequestDispatcher("HomeServlet").forward(request, response);
         } else {
             //response.sendRedirect("login.jsp");
             request.getRequestDispatcher("login.jsp").forward(request, response);
