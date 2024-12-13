@@ -9,13 +9,15 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
-@WebServlet(urlPatterns = {"/login", "/login.html"})
+@WebServlet("/login")
 public class LoginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (request.getSession().getAttribute("username") == null)
-            response.sendRedirect("login.html");
+        if (request.getSession(false) == null)
+            //response.sendRedirect("login.jsp");
+            request.getRequestDispatcher("login.jsp").forward(request, response);
         else
-            response.sendRedirect("index.jsp");
+            //response.sendRedirect("index.jsp");
+            request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -27,9 +29,11 @@ public class LoginServlet extends HttpServlet {
             HttpSession session = request.getSession();
             session.setAttribute("username", username);
             session.setAttribute("role", role);
-            response.sendRedirect("index.jsp");
+            //response.sendRedirect("index.jsp");
+            request.getRequestDispatcher("index.jsp").forward(request, response);
         } else {
-            response.sendRedirect("login.html");
+            //response.sendRedirect("login.jsp");
+            request.getRequestDispatcher("login.jsp").forward(request, response);
         }
     }
 }
