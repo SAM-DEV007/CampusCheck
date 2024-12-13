@@ -81,7 +81,7 @@
 
 <div class="container">
     <h1>Login</h1>
-    <form action="LoginServlet" method="POST" autocomplete="off">
+    <form action="login" method="POST" autocomplete="off">
         <label for="username">Username</label>
         <input type="text" id="username" name="username" placeholder="Enter your username" required>
 
