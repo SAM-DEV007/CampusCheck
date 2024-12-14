@@ -8,6 +8,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.sql.*;
+
+import java.util.ArrayList;
 
 @WebServlet("/home")
 public class HomeServlet extends HttpServlet {
@@ -15,6 +18,10 @@ public class HomeServlet extends HttpServlet {
         HttpSession session = request.getSession(false);
         if (session != null && session.getAttribute("role") != null) {
             String role = (String) session.getAttribute("role");
+            String username = (String) session.getAttribute("username");
+
+            ArrayList<String> subjects = getSubjects(username, role);
+            request.setAttribute("subjectList", subjects);
 
             switch (role) {
                 case "student": case "teacher":
@@ -42,5 +49,42 @@ public class HomeServlet extends HttpServlet {
                 request.getRequestDispatcher("WEB-INF/webpages/teacher.jsp").forward(request, response);
                 break;
         }
+    }
+
+    private ArrayList<String> getSubjects(String username, String role) {
+        ArrayList<String> subjects = new ArrayList<>();
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection conn = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/campuscheck",
+                    "root", "root");
+
+            Statement statement;
+            statement = conn.createStatement();
+
+            ResultSet resultSet;
+
+            if (role.equals("student")) {
+                resultSet = statement.executeQuery("select (select Name from Subject where Student_Subject.SubjectID = Subject.SubjectID) AS Subject from Student_Subject where StudentID = (select ID from student where Name = '" + username + "');");
+                while (resultSet.next()) {
+                    subjects.add(resultSet.getString("Subject"));
+                }
+                resultSet.close();
+            } else if (role.equals("teacher")) {
+                resultSet = statement.executeQuery("select distinct (select Name from Subject where Student_Subject.SubjectID = Subject.SubjectID) AS Subject from student_subject where TeacherID = (select ID from teacher where Name = '" + username + "');");
+                while (resultSet.next()) {
+                    subjects.add(resultSet.getString("SubjectID"));
+                }
+                resultSet.close();
+            }
+
+            statement.close();
+            conn.close();
+        } catch (SQLException | ClassNotFoundException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+
+        return subjects;
     }
 }

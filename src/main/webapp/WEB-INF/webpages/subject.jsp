@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.util.ArrayList" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -116,12 +118,22 @@
     <form action="home" method="post">
         <label for="subject">Subject:</label>
         <select id="subject" name="subject" required>
+            <!--
             <option value="">-- Select --</option>
             <option value="Math">Mathematics</option>
             <option value="Science">Science</option>
             <option value="English">English Language & Literature</option>
             <option value="History">History</option>
+            -->
+            <option value="">-- Select --</option>
+
+            <% ArrayList<String> subjects = (ArrayList<String>) request.getAttribute("subjectList"); %>
+            <% for (int i = 0; i < subjects.size(); i++) { %>
+                <% String subject = subjects.get(i); %>
+                <option value=<%= subject %>> <%= subject %> </option>
+            <% } %>
         </select>
+        <br>
 
         <% String button_text = ""; %>
         <% if (role.equals("student")) button_text = "View"; %>
