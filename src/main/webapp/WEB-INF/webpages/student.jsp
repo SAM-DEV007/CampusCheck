@@ -1,11 +1,6 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: HP
-  Date: 14-12-2024
-  Time: 19:50
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.util.ArrayList"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -120,17 +115,17 @@
         <thead>
         <tr>
             <th>Subject</th>
-            <th>Total Classes</th>
             <th>Classes Attended</th>
+            <th>Total Classes</th>
             <th>Percentage</th>
         </tr>
         </thead>
         <tbody>
         <tr>
-            <td>Mathematics</td>
-            <td>40</td>
-            <td>36</td>
-            <td>90%</td>
+            <td><%= request.getAttribute("subject") %></td>
+            <td><%= request.getAttribute("present") %></td>
+            <td><%= request.getAttribute("totalClasses") %></td>
+            <td><%= request.getAttribute("percentage") %>%</td>
         </tr>
         </tbody>
     </table>
@@ -143,14 +138,13 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td>1</td>
-            <td>Present</td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>Absent</td>
-        </tr>
+        <% ArrayList<String> attendance = (ArrayList<String>) request.getAttribute("attendanceList"); %>
+        <% for (int i = 0; i < attendance.size(); i++) { %>
+            <tr>
+                <td><%= i + 1 %></td>
+                <td><%= attendance.get(i) %></td>
+            </tr>
+        <% } %>
         </tbody>
     </table>
 </div>

@@ -36,13 +36,30 @@ public class HomeServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String role = (String) request.getSession().getAttribute("role");
+        HttpSession session = request.getSession(false);
+        String role = (String) session.getAttribute("role");
+        String username = (String) session.getAttribute("username");
 
         String subject = request.getParameter("subject");
         request.setAttribute("subject", subject);
 
         switch (role) {
             case "student":
+                ArrayList<String> attendance = getStudentAttendance(username, subject);
+
+                request.setAttribute("totalClasses", attendance.size());
+                request.setAttribute("attendanceList", attendance);
+
+                int present = 0;
+                for (int i = 0; i < attendance.size(); i++) {
+                    if (attendance.get(i).equals("Present")) {
+                        present++;
+                    }
+                }
+
+                request.setAttribute("present", present);
+                request.setAttribute("percentage", (int) Math.ceil((double) present / attendance.size() * 100));
+
                 request.getRequestDispatcher("WEB-INF/webpages/student.jsp").forward(request, response);
                 break;
             case "teacher":
@@ -86,5 +103,37 @@ public class HomeServlet extends HttpServlet {
         }
 
         return subjects;
+    }
+
+    private ArrayList<String> getStudentAttendance(String username, String subject) {
+        ArrayList<String> attendance = new ArrayList<>();
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection conn = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/campuscheck",
+                    "root", "root");
+
+            Statement statement;
+            statement = conn.createStatement();
+
+            ResultSet resultSet;
+
+            resultSet = statement.executeQuery("select Class, Present from attendance where SSID = (select ID from Student_Subject WHERE Student_Subject.SubjectID = (SELECT Subject.SubjectID from Subject WHERE Name = '" + subject + "') AND StudentID = (SELECT ID from Student where Name = '" + username + "')) order by Class ASC;");
+            while (resultSet.next()) {
+                int status = resultSet.getInt("Present");
+                String statusString = (status == 1) ? "Present" : "Absent";
+
+                attendance.add(statusString);
+            }
+
+            resultSet.close();
+            statement.close();
+            conn.close();
+        } catch (SQLException | ClassNotFoundException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+
+        return attendance;
     }
 }
