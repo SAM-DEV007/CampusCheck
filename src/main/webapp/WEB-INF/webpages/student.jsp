@@ -1,8 +1,15 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: HP
+  Date: 14-12-2024
+  Time: 19:50
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Subjects</title>
+    <title>Student Portal</title>
     <style>
         body {
             font-family: sans-serif;
@@ -32,29 +39,24 @@
 
         h2 {
             font-size: 28px;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
 
-        select {
-            padding: 15px;
-            font-size: 15px;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-            margin-bottom: 15px;
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
         }
 
-        button {
-            padding: 15px 30px;
-            font-size: 18px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
         }
 
+        /* Profile Section Styling */
         .profile-section {
-            position: absolute;
+            position: fixed;
             top: 20px;
             right: 20px;
             width: 90px;
@@ -112,22 +114,32 @@
 </div>
 
 <div class="container">
-    <h2>Select Subject</h2>
-    <form action="home" method="post">
-        <label for="subject"></label>Subject:</label>
-        <select id="subject" name="subject" required>
-            <option value="">-- Select --</option>
-            <option value="Math">Mathematics</option>
-            <option value="Science">Science</option>
-            <option value="English">English Language & Literature</option>
-            <option value="History">History</option>
-        </select>
+    <h2>Student Portal</h2>
 
-        <% String button_text = ""; %>
-        <% if (role.equals("student")) button_text = "View"; %>
-        <% if (role.equals("teacher")) button_text = "Mark"; %>
-        <button type="submit"><%= button_text %> Attendance</button>
-    </form>
+    <table>
+        <thead>
+        <tr>
+            <th>Subject</th>
+            <th>Total Classes</th>
+            <th>Classes Attended</th>
+            <th>Percentage</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Mathematics</td>
+            <td>40</td>
+            <td>36</td>
+            <td>90%</td>
+        </tr>
+        <tr>
+            <td>Science</td>
+            <td>45</td>
+            <td>38</td>
+            <td>84.44%</td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 
 </body>

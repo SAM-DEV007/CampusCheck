@@ -27,4 +27,20 @@ public class HomeServlet extends HttpServlet {
             response.sendRedirect("/login");
         }
     }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String role = (String) request.getSession().getAttribute("role");
+
+        String subject = request.getParameter("subject");
+        request.setAttribute("subject", subject);
+
+        switch (role) {
+            case "student":
+                request.getRequestDispatcher("WEB-INF/webpages/student.jsp").forward(request, response);
+                break;
+            case "teacher":
+                request.getRequestDispatcher("WEB-INF/webpages/teacher.jsp").forward(request, response);
+                break;
+        }
+    }
 }
