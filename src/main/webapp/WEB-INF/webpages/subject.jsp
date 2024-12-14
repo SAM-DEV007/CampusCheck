@@ -114,7 +114,7 @@
 <div class="container">
     <h2>Select Subject</h2>
     <form action="home" method="post">
-        <label for="subject"></label>Subject:</label>
+        <label for="subject">Subject:</label>
         <select id="subject" name="subject" required>
             <option value="">-- Select --</option>
             <option value="Math">Mathematics</option>
