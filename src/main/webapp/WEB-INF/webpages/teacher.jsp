@@ -151,17 +151,6 @@
             </tr>
             </thead>
             <tbody>
-            <!--
-            <tr>
-                <td><label for="student">Ajay</label></td>
-                <td>
-                    <select id="student" name="Ajay" required>
-                        <option value="Present">Present</option>
-                        <option value="Absent">Absent</option>
-                    </select>
-                </td>
-            </tr>
-            -->
             <% ArrayList<String> students = (ArrayList<String>) request.getAttribute("studentList"); %>
             <% for (int i = 0; i < students.size(); i++) { %>
             <tr>
