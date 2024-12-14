@@ -21,7 +21,7 @@ public class SubmitAttendanceServlet extends HttpServlet {
             String role = (String) session.getAttribute("role");
             String username = (String) session.getAttribute("username");
 
-            Enumeration<String> students = (Enumeration<String>) request.getParameterNames();
+            Enumeration<String> students = request.getParameterNames();
             while (students.hasMoreElements()) {
                 String student = students.nextElement();
                 String status = request.getParameter(student);
