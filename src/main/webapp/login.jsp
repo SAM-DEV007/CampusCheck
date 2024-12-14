@@ -11,7 +11,7 @@
             margin: 0;
             padding: 0;
             background-color: #f4f4f4;
-            background-image: url(academic.avif);
+            background-image: url("images/academic.avif");
             background-size: cover;
             background-position: center;
         }
