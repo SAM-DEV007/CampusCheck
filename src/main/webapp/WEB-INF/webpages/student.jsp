@@ -132,11 +132,24 @@
             <td>36</td>
             <td>90%</td>
         </tr>
+        </tbody>
+    </table>
+
+    <table>
+        <thead>
         <tr>
-            <td>Science</td>
-            <td>45</td>
-            <td>38</td>
-            <td>84.44%</td>
+            <th>Class</th>
+            <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>1</td>
+            <td>Present</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Absent</td>
         </tr>
         </tbody>
     </table>
