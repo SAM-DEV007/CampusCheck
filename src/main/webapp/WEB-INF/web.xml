@@ -15,6 +15,10 @@
         <servlet-name>HomeServlet</servlet-name>
         <servlet-class>com.example.campuscheck.HomeServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SubmitAttendanceServlet</servlet-name>
+        <servlet-class>com.example.campuscheck.SubmitAttendanceServlet</servlet-class>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -27,6 +31,10 @@
     <servlet-mapping>
         <servlet-name>HomeServlet</servlet-name>
         <url-pattern>/HomeServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SubmitAttendanceServlet</servlet-name>
+        <url-pattern>/SubmitAttendanceServlet</url-pattern>
     </servlet-mapping>
 
     <welcome-file-list>

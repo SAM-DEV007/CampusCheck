@@ -23,6 +23,12 @@ public class HomeServlet extends HttpServlet {
             ArrayList<String> subjects = getSubjects(username, role);
             request.setAttribute("subjectList", subjects);
 
+            if (session.getAttribute("attendanceSubmitted") != null && (boolean) session.getAttribute("attendanceSubmitted") && role.equals("teacher")) {
+                request.setAttribute("message", "Attendance marked successfully!");
+                session.removeAttribute("attendanceSubmitted");
+            } else
+                request.setAttribute("message", "");
+
             switch (role) {
                 case "student": case "teacher":
                     request.getRequestDispatcher("WEB-INF/webpages/subject.jsp").forward(request, response);

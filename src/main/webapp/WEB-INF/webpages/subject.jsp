@@ -133,6 +133,8 @@
         <% if (role.equals("teacher")) button_text = "Mark"; %>
         <button type="submit"><%= button_text %> Attendance</button>
     </form>
+
+    <p style="color: green;"><%= request.getAttribute("message") %></p>
 </div>
 
 </body>
