@@ -22,7 +22,7 @@ public class LoginServlet extends HttpServlet {
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("username") == null) {
             request.setAttribute("error", "");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+            request.getRequestDispatcher("WEB-INF/webpages/login.jsp").forward(request, response);
         }
         else
             response.sendRedirect("/home");
@@ -47,7 +47,7 @@ public class LoginServlet extends HttpServlet {
             response.sendRedirect("/home");
         } else {
             request.setAttribute("error", "Invalid username or password");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+            request.getRequestDispatcher("WEB-INF/webpages/login.jsp").forward(request, response);
         }
     }
 
