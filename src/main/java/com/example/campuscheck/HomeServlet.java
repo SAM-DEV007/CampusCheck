@@ -18,11 +18,8 @@ public class HomeServlet extends HttpServlet {
             String role = (String) session.getAttribute("role");
 
             switch (role) {
-                case "student":
-                    request.getRequestDispatcher("WEB-INF/webpages/index.jsp").forward(request, response);
-                    break;
-                case "teacher":
-                    request.getRequestDispatcher("teacher.jsp").forward(request, response);
+                case "student": case "teacher":
+                    request.getRequestDispatcher("WEB-INF/webpages/subject.jsp").forward(request, response);
                     break;
                 default:
                     response.sendRedirect("/login");
