@@ -63,6 +63,8 @@ public class HomeServlet extends HttpServlet {
                 request.getRequestDispatcher("WEB-INF/webpages/student.jsp").forward(request, response);
                 break;
             case "teacher":
+                request.setAttribute("studentList", getStudentList(username, subject));
+
                 request.getRequestDispatcher("WEB-INF/webpages/teacher.jsp").forward(request, response);
                 break;
         }
@@ -91,7 +93,7 @@ public class HomeServlet extends HttpServlet {
             } else if (role.equals("teacher")) {
                 resultSet = statement.executeQuery("select distinct (select Name from Subject where Student_Subject.SubjectID = Subject.SubjectID) AS Subject from student_subject where TeacherID = (select ID from teacher where Name = '" + username + "');");
                 while (resultSet.next()) {
-                    subjects.add(resultSet.getString("SubjectID"));
+                    subjects.add(resultSet.getString("Subject"));
                 }
                 resultSet.close();
             }
@@ -135,5 +137,34 @@ public class HomeServlet extends HttpServlet {
         }
 
         return attendance;
+    }
+
+    private ArrayList<String> getStudentList(String username, String subject) {
+        ArrayList<String> students = new ArrayList<>();
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection conn = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/campuscheck",
+                    "root", "root");
+
+            Statement statement;
+            statement = conn.createStatement();
+
+            ResultSet resultSet;
+
+            resultSet = statement.executeQuery("select (select Name from student where ID = StudentID) AS Student from student_subject where TeacherID = (select ID from teacher where Name = '" + username + "') and SubjectID = (select SubjectID from subject where Name = '" + subject + "');");
+            while (resultSet.next()) {
+                students.add(resultSet.getString("Student"));
+            }
+
+            resultSet.close();
+            statement.close();
+            conn.close();
+        } catch (SQLException | ClassNotFoundException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+
+        return students;
     }
 }

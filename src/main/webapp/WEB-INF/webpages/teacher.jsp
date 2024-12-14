@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.util.ArrayList" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -117,7 +119,7 @@
             cursor: pointer;
         }
 
-        #student {
+        .student {
             width: 250px;
         }
     </style>
@@ -139,7 +141,7 @@
 
 <div class="container">
     <h2>Teacher Portal</h2>
-    <p><strong>Subject: Mathematics</strong></p>
+    <p><strong>Subject: <%= request.getAttribute("subject") %></strong></p>
     <form>
         <table id="attendanceTable">
             <thead>
@@ -149,6 +151,7 @@
             </tr>
             </thead>
             <tbody>
+            <!--
             <tr>
                 <td><label for="student">Ajay</label></td>
                 <td>
@@ -158,6 +161,19 @@
                     </select>
                 </td>
             </tr>
+            -->
+            <% ArrayList<String> students = (ArrayList<String>) request.getAttribute("studentList"); %>
+            <% for (int i = 0; i < students.size(); i++) { %>
+            <tr>
+                <td><label for="student_<%= i + 1 %>"><%= students.get(i) %></label></td>
+                <td>
+                    <select class="student" id="student_<%= i + 1 %>" name="<%= students.get(i) %>" required>
+                        <option value="Present">Present</option>
+                        <option value="Absent">Absent</option>
+                    </select>
+                </td>
+            </tr>
+            <% } %>
             </tbody>
         </table>
         <button id="submitAttendance">Submit Attendance</button>
