@@ -116,6 +116,10 @@
             border-radius: 3px;
             cursor: pointer;
         }
+
+        #student {
+            width: 250px;
+        }
     </style>
 </head>
 <body>
@@ -146,9 +150,9 @@
             </thead>
             <tbody>
             <tr>
-                <td><label for="subject">Ajay</label></td>
+                <td><label for="student">Ajay</label></td>
                 <td>
-                    <select id="subject" name="Ajay" required>
+                    <select id="student" name="Ajay" required>
                         <option value="Present">Present</option>
                         <option value="Absent">Absent</option>
                     </select>
