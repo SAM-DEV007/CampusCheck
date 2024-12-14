@@ -115,7 +115,7 @@
     <h2>Select Subject</h2>
     <form>
         <label for="subject"></label>Subject:</label>
-        <select id="subject" name="subject">
+        <select id="subject" name="subject" required>
             <option value="">-- Select --</option>
             <option value="Math">Mathematics</option>
             <option value="Science">Science</option>
