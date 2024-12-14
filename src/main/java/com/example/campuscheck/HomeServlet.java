@@ -47,7 +47,7 @@ public class HomeServlet extends HttpServlet {
         String username = (String) session.getAttribute("username");
 
         String subject = request.getParameter("subject");
-        request.setAttribute("subject", subject);
+        session.setAttribute("subject", subject);
 
         switch (role) {
             case "student":
@@ -57,8 +57,8 @@ public class HomeServlet extends HttpServlet {
                 request.setAttribute("attendanceList", attendance);
 
                 int present = 0;
-                for (int i = 0; i < attendance.size(); i++) {
-                    if (attendance.get(i).equals("Present")) {
+                for (String s : attendance) {
+                    if (s.equals("Present")) {
                         present++;
                     }
                 }

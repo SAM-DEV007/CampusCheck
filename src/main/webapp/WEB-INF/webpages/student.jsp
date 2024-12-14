@@ -122,7 +122,7 @@
         </thead>
         <tbody>
         <tr>
-            <td><%= request.getAttribute("subject") %></td>
+            <td><%= session.getAttribute("subject") %></td>
             <td><%= request.getAttribute("present") %></td>
             <td><%= request.getAttribute("totalClasses") %></td>
             <td><%= request.getAttribute("percentage") %>%</td>

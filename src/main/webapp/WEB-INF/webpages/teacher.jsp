@@ -141,7 +141,7 @@
 
 <div class="container">
     <h2>Teacher Portal</h2>
-    <p><strong>Subject: <%= request.getAttribute("subject") %></strong></p>
+    <p><strong>Subject: <%= session.getAttribute("subject") %></strong></p>
     <form action="submitAttendance" method="post">
         <table id="attendanceTable">
             <thead>
