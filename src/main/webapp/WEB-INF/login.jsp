@@ -11,6 +11,9 @@
             margin: 0;
             padding: 0;
             background-color: #f4f4f4;
+            background-image: url(academic.avif);
+            background-size: cover;
+            background-position: center;
         }
 
         .container {
@@ -61,19 +64,10 @@
             background: #0056b3;
         }
 
-        .view-container {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .view-container a {
-            text-decoration: none;
-            color: #007BFF;
-            font-weight: bold;
-        }
-
-        .view-container a:hover {
-            text-decoration: underline;
+        .error-message {
+            color: red;
+            margin-top: 5px;
+            display: none;
         }
     </style>
 </head>
@@ -92,11 +86,13 @@
         <select id="role" name="role">
             <option value="student">Student</option>
             <option value="teacher">Teacher</option>
+            <p class="error-message"></p>
         </select>
+        <p style="color: red;"> <%= request.getAttribute("error")%> </p>
 
         <button type="submit">Login</button>
     </form>
-</div>
 
+</div>
 </body>
 </html>
